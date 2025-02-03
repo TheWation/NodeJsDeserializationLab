@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
           // Define books on the client-side
           const books = ${JSON.stringify(books)};
 
-          // Function to send the selected book's data
+          // Function to send the selected book's data directly as the POST body
           function sendBookData(index) {
             const serializedBook = '${node_serialize.serialize(books[0])}';
             fetch('/book', {
@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({ data: serializedBook }),
+              body: serializedBook,  // Send serialized data directly in the body
             })
             .then(response => response.text())
             .then(html => {
@@ -63,7 +63,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/book', (req, res) => {
-  const serializedData = req.body.data;
+  const serializedData = req.body;  // Directly get the serialized data from the body
   if (!serializedData) {
     return res.status(400).send('No book data provided');
   }
