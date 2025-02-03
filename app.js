@@ -17,7 +17,6 @@ const books = [
   { title: 'Effective Python', author: 'Brett Slatkin', year: 2020 }
 ];
 
-// Home route: show list of books with buttons to send POST data
 app.get('/', (req, res) => {
   res.send(`
     <html>
@@ -63,7 +62,6 @@ app.get('/', (req, res) => {
   `);
 });
 
-// POST route: show details for the selected book
 app.post('/book', (req, res) => {
   const serializedData = req.body.data;
   if (!serializedData) {
